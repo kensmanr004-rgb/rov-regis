@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROV Tournament Registration | ลงทะเบียนแข่งขัน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-crosshairs icon-glow"></i> ROV <span>CHAMPIONSHIP</span>
+            </div>
+            <div class="status-badge">
+                <span class="live-dot"></span> เปิดรับสมัครแล้ว
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="glitch-text">ROV TOURNAMENT<br><span class="gradient-text">ลงทะเบียนแข่งขัน</span></h1>
+            <p class="subtitle">รวบรวมทีม 5 คนของคุณ พิชิต Abyssal Dragon และก้าวขึ้นสู่ระดับตำนาน คุณพร้อมที่จะครองอารีน่าแล้วหรือยัง?</p>
+            <div class="hero-actions">
+                <a href="#register-form-section" class="btn btn-primary btn-glow">
+                    <span>สมัครแข่งขัน NOW</span> <i class="fa-solid fa-gamepad"></i>
+                </a>
+                <a href="#info-section" class="btn btn-secondary">
+                    <span>รายละเอียดกฎกติกา</span> <i class="fa-solid fa-scroll"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="info-section" class="info-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>TOURNAMENT DETAILS</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>รูปแบบทีม (TEAM FORMAT)</h3>
+                    <p>ผู้เล่นหลัก 5 คน + ตัวสำรอง 1 คน (Optional) ผู้เล่นทุกคนต้องลงทะเบียนภายใต้ชื่อทีมเดียวกันเท่านั้น</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3>โหมดการแข่งขัน (MATCH MODE)</h3>
+                    <p>5v5 Grand Battle (Caldavar) Tournament Mode ใช้กฎ Custom Draft Mode (มีช่วง Pick/Ban)</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>ข้อควรระวัง (IMPORTANT)</h3>
+                    <p>ตรวจสอบ In-Game Name (IGN) ให้ถูกต้องเป๊ะ การแชร์ไอดีหรือใช้ผู้เล่นที่ไม่ได้ลงทะเบียนจะถูกปรับแพ้ (DQ) ทันที</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register-form-section" class="form-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h2>SECURE YOUR SLOT</h2>
+                    <p>กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง ไม่อนุญาตให้เปลี่ยนแปลงข้อมูลหลังจากระบบสุ่มสายการแข่งขัน (Bracket) แล้ว</p>
+                </div>
+
+                <form id="rovRegistrationForm" novalidate>
+                    
+                    <div class="form-segment">
+                        <div class="segment-title">
+                            <span class="step-num">01</span> ข้อมูลทีม (Team Identity)
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="teamName"><i class="fa-solid fa-flag"></i> ชื่อทีม <span class="required">*</span></label>
+                            <input type="text" id="teamName" name="teamName" placeholder="ตั้งชื่อทีมสุดเท่ของคุณ" required>
+                            <span class="error-msg">กรุณากรอกชื่อทีม</span>
+                        </div>
+                    </div>
+
+                    <div class="form-segment">
+                        <div class="segment-title">
+                            <span class="step-num">02</span> ข้อมูลหัวหน้าทีม (Captain / Leader)
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="leaderRealName"><i class="fa-solid fa-user"></i> ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                <input type="text" id="leaderRealName" name="leaderRealName" placeholder="เช่น นายสมชาย ใจดี" required>
+                                <span class="error-msg">กรุณากรอกชื่อจริง</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="leaderIGN"><i class="fa-solid fa-id-card"></i> ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                <input type="text" id="leaderIGN" name="leaderIGN" placeholder="เช่น SlayerPro" required>
+                                <span class="error-msg">กรุณากรอกชื่อในเกม (IGN)</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="leaderContact"><i class="fa-solid fa-address-book"></i> ช่องทางติดต่อ <span class="required">*</span></label>
+                                <input type="text" id="leaderContact" name="leaderContact" placeholder="เบอร์โทรศัพท์ หรือ Discord ID" required>
+                                <span class="error-msg">กรุณากรอกช่องทางติดต่อ</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="leaderClass"><i class="fa-solid fa-graduation-cap"></i> ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                <input type="text" id="leaderClass" name="leaderClass" placeholder="เช่น ม.6 / ห้อง 1" required>
+                                <span class="error-msg">กรุณากรอกระดับชั้น</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-segment">
+                        <div class="segment-title">
+                            <span class="step-num">03</span> ผู้เล่นตัวจริง (Main Roster - บังคับ 5 คน)
+                        </div>
+                        
+                        <div class="roster-grid">
+                            <div class="player-card">
+                                <div class="player-card-header">ผู้เล่นคนที่ 1</div>
+                                <div class="player-card-body">
+                                    <div class="form-group">
+                                        <label>ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                        <input type="text" name="p1RealName" placeholder="ชื่อจริง" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                        <input type="text" name="p1IGN" placeholder="IGN" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                        <input type="text" name="p1Class" placeholder="ระดับชั้น" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="player-card">
+                                <div class="player-card-header">ผู้เล่นคนที่ 2</div>
+                                <div class="player-card-body">
+                                    <div class="form-group">
+                                        <label>ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                        <input type="text" name="p2RealName" placeholder="ชื่อจริง" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                        <input type="text" name="p2IGN" placeholder="IGN" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                        <input type="text" name="p2Class" placeholder="ระดับชั้น" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="player-card">
+                                <div class="player-card-header">ผู้เล่นคนที่ 3</div>
+                                <div class="player-card-body">
+                                    <div class="form-group">
+                                        <label>ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                        <input type="text" name="p3RealName" placeholder="ชื่อจริง" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                        <input type="text" name="p3IGN" placeholder="IGN" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                        <input type="text" name="p3Class" placeholder="ระดับชั้น" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="player-card">
+                                <div class="player-card-header">ผู้เล่นคนที่ 4</div>
+                                <div class="player-card-body">
+                                    <div class="form-group">
+                                        <label>ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                        <input type="text" name="p4RealName" placeholder="ชื่อจริง" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                        <input type="text" name="p4IGN" placeholder="IGN" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                        <input type="text" name="p4Class" placeholder="ระดับชั้น" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="player-card">
+                                <div class="player-card-header">ผู้เล่นคนที่ 5</div>
+                                <div class="player-card-body">
+                                    <div class="form-group">
+                                        <label>ชื่อ-นามสกุลจริง <span class="required">*</span></label>
+                                        <input type="text" name="p5RealName" placeholder="ชื่อจริง" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อในเกม (IGN) <span class="required">*</span></label>
+                                        <input type="text" name="p5IGN" placeholder="IGN" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ระดับชั้น / ห้อง <span class="required">*</span></label>
+                                        <input type="text" name="p5Class" placeholder="ระดับชั้น" required>
+                                        <span class="error-msg">จำเป็น</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-segment substitute-segment">
+                        <div class="segment-title">
+                            <span class="step-num">04</span> ผู้เล่นตัวสำรอง <span class="optional-tag">(Optional)</span>
+                        </div>
+                        <p class="segment-desc">ปล่อยว่างในส่วนนี้ได้เลย หากทีมของคุณไม่มีผู้เล่นสำรอง</p>
+                        
+                        <div class="player-card substitute-card">
+                            <div class="player-card-header">Tactical Substitute</div>
+                            <div class="player-card-body">
+                                <div class="form-group">
+                                    <label>ชื่อ-นามสกุลจริง</label>
+                                    <input type="text" name="subRealName" placeholder="ชื่อจริง (ไม่บังคับ)">
+                                </div>
+                                <div class="form-group">
+                                    <label>ชื่อในเกม (IGN)</label>
+                                    <input type="text" name="subIGN" placeholder="IGN (ไม่บังคับ)">
+                                </div>
+                                <div class="form-group">
+                                    <label>ระดับชั้น / ห้อง</label>
+                                    <input type="text" name="subClass" placeholder="ระดับชั้น (ไม่บังคับ)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submit-wrapper">
+                        <button type="submit" class="btn btn-submit btn-glow-purple">
+                            <span>ยืนยัน ROSTER</span> <i class="fa-solid fa-shield-halved"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>REGISTRATION SUCCESSFUL!</h2>
+            <p>ข้อมูลทีมของคุณถูกบันทึกเข้าสู่ฐานข้อมูลระบบแล้ว ทีมงานจะทำการตรวจสอบความถูกต้องของข้อมูลในลำดับต่อไป</p>
+            <div class="modal-team-summary">
+                Status: <span class="status-ok">PENDING APPROVAL (รอการตรวจสอบ)</span>
+            </div>
+            <button id="closeModalBtn" class="btn btn-primary">ยืนยัน & ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ROV Esports Arena. All Rights Reserved. (ระบบนี้จำลองขึ้นเพื่อแสดงผลการลงทะเบียนเท่านั้น)</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
