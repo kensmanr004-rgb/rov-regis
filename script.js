@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const successModal = document.getElementById('successModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     
-    // --- เปลี่ยน URL ตรงนี้ด้วยลิงก์ที่ได้จาก Google Apps Script ---
+    // ⚠️ อย่าลืม! นำ URL ล่าสุดที่ได้จากการ Deploy Web App บน Google Apps Script มาแทนที่ลิงก์ด้านล่างนี้
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxx1B6DsmWvm_E2bKqYaB--vmVPaOnVLpc2mg2tbbSXnaPcq93UcE0gBFI5aGMNbBevKA/exec';
 
-    // จัดการ visual states เมื่อมีการกรอกข้อมูล
+    // ดึงเฉพาะช่องข้อมูลที่ตั้งค่าบังคับกรอก (required) เพื่อทำระบบแจ้งเตือนสีแดง
     const inputs = form.querySelectorAll('input[required]');
     
     inputs.forEach(input => {
@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ดักจับการกดปุ่ม Submit
+    // ดักจับจังหวะการกดปุ่ม Submit ฟอร์ม
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         let isFormValid = true;
 
-        // ตรวจสอบความถูกต้องของฟิลด์ที่บังคับ (Required)
+        // ตรวจสอบความถูกต้องของฟิลด์ที่บังคับ (Required) ทั้งหมดอีกครั้งก่อนส่ง
         inputs.forEach(input => {
             if (input.value.trim() === "") {
                 isFormValid = false;
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // หากไม่ผ่านการตรวจสอบ ให้เลื่อนจอไปที่จุดที่ผิดพลาด
+        // หากตรวจเจอจุดว่าง ให้เลื่อนหน้าจอไปยังจุดที่ลืมกรอกจุดแรกทันทีแบบนุ่มนวล
         if (!isFormValid) {
             const firstInvalid = form.querySelector('.form-group.invalid');
             if (firstInvalid) {
@@ -52,39 +52,40 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --- เริ่มต้นกระบวนการส่งข้อมูล ---
+        // --- เริ่มต้นกระบวนการส่งข้อมูลไปยัง Google Sheets ---
         const btnSubmit = form.querySelector('button[type="submit"]');
-        btnSubmit.disabled = true; // ป้องกันการกดซ้ำ
+        btnSubmit.disabled = true; // ป้องกันการกดเบิ้ลส่งข้อมูลซ้ำ
         btnSubmit.innerHTML = '<span>กำลังส่งข้อมูล...</span>';
 
         try {
-            // ดึงข้อมูลจากฟอร์ม
+            // ดึงข้อมูลทั้งหมดจากช่อง input ในฟอร์มแบบอัตโนมัติ
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
-            // ส่งข้อมูลไปยัง Google Sheets
+            // ยิงข้อมูล POST ไปยัง Google Apps Script
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // จำเป็นสำหรับการเชื่อมต่อกับ Google Apps Script
+                mode: 'no-cors', // สำคัญมาก: ป้องกันเบราว์เซอร์บล็อกปัญหา CORS
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             });
 
-            // หากสำเร็จ
+            // หากทำงานสำเร็จ: เปิดหน้าต่างแจ้งเตือนโหมด Popup และทำการเคลียร์ฟอร์ม
             openModal();
             form.reset();
         } catch (error) {
             console.error('Error:', error);
-            alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับระบบ กรุณาลองใหม่อีกครั้ง');
+            alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับฐานข้อมูล กรุณาลองใหม่อีกครั้ง');
         } finally {
+            // คืนค่าปุ่มยืนยันให้กลับมาเป็นปกติ
             btnSubmit.disabled = false;
             btnSubmit.innerHTML = '<span>ยืนยัน ROSTER</span> <i class="fa-solid fa-shield-halved"></i>';
         }
     });
 
-    // --- ฟังก์ชันจัดการ Modal ---
+    // --- ฟังก์ชันจัดการเปิด-ปิด Modal ---
     function openModal() {
         successModal.classList.add('active');
         document.body.style.overflow = 'hidden'; 
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeModalBtn.addEventListener('click', closeModal);
 
-    // ปิด Modal หากคลิกพื้นที่ว่างด้านนอก
+    // ปิดหน้าต่าง Popup หากคลิกพื้นที่ว่างด้านนอกกล่องข้อความ
     successModal.addEventListener('click', (e) => {
         if (e.target === successModal) {
             closeModal();
