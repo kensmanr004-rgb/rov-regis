@@ -1,7 +1,7 @@
 /* ═══════ ตั้งค่าตรงนี้ ═══════ */
 var GROUP_LINK   = "https://line.me/ti/g/642AHg2T5x";
 var PLAYER_COUNT = 5;
-var GAS_URL      = "https://script.google.com/macros/s/AKfycbzRw5G9G_daN7wd9eQxpBdpz_-8ctrij8tYV7HsBTpbfQuAfQoA-C4g8BPKuwSkQ5QtVA/exec";
+var GAS_URL      = "";
 /* ═══════════════════════════ */
 
 var FIELDS = [
