@@ -1,7 +1,7 @@
 /* ═══════ ตั้งค่าตรงนี้ ═══════ */
 var GROUP_LINK   = "https://line.me/ti/g/642AHg2T5x";
 var PLAYER_COUNT = 5;
-var GAS_URL      = "";
+var GAS_URL      = "https://script.google.com/macros/s/AKfycbzRw5G9G_daN7wd9eQxpBdpz_-8ctrij8tYV7HsBTpbfQuAfQoA-C4g8BPKuwSkQ5QtVA/exec";
 /* ═══════════════════════════ */
 
 var FIELDS = [
@@ -56,6 +56,7 @@ function grab(pre){
 /* ── ส่งฟอร์ม ── */
 document.getElementById("form").addEventListener("submit", function(e){
   e.preventDefault();
+
   var errs = [];
   document.querySelectorAll("input").forEach(function(i){ i.classList.remove("bad"); });
 
@@ -99,21 +100,23 @@ document.getElementById("form").addEventListener("submit", function(e){
   var data = {
     game: "RoV",
     team: { name: val("team_name"), leader: val("team_leader"), contact: val("team_contact") },
-    players: players,
-    substitute: sub,
-    submittedAt: new Date().toISOString()
+    players: [],
+    substitute: grab("sub")
   };
-
+  for(var i=1; i<=PLAYER_COUNT; i++) data.players.push(grab("p"+i));
+  
   var btn = e.target.querySelector(".send");
-  btn.disabled = true;
-  btn.textContent = "กำลังส่ง...";
+  btn.disabled = true; btn.textContent = "กำลังส่ง...";
 
-  function finish(ok){
-    btn.disabled = false;
-    btn.textContent = "ส่งข้อมูลลงทะเบียน";
-    if (ok){
-      document.getElementById("done").classList.add("on");
-      e.target.reset();
+  fetch(GAS_URL, {
+    method: "POST", mode: "no-cors",
+    body: JSON.stringify(data)
+  }).then(function(){
+    document.getElementById("done").classList.add("on");
+    btn.disabled = false; btn.textContent = "ส่งข้อมูลลงทะเบียน";
+    e.target.reset();
+  });
+});
     } else {
       alert("ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่");
     }
