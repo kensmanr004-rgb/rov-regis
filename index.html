@@ -5,125 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RoV Tournament — ลงทะเบียนทีม</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#070b16; --panel:#0d1428; --card:#111a33; --line:#1e2a4a;
-  --blue:#2f7bff; --cyan:#38e0ff; --gold:#ffc councils;
-  --gold2:#ffb733; --txt:#e8eeff; --dim:#7d8bab;
-}
-body{background:var(--bg);color:var(--txt);font-family:'Kanit',sans-serif;
-  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.shell{width:100%;max-width:1180px;display:grid;grid-template-columns:400px 1fr;
-  background:var(--panel);border:1px solid var(--line);border-radius:20px;
-  overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.7)}
-
-/* ── ซ้าย: ภาพตัวละคร ── */
-.hero{position:relative;min-height:640px;overflow:hidden;
-  background:radial-gradient(120% 90% at 30% 15%,#1b3a7a 0%,#0d1c3d 45%,#060a14 100%)}
-.hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(6,10,20,.96) 0%,rgba(6,10,20,.25) 45%,transparent 75%)}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center top}
-.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55}
-.orb.a{width:260px;height:260px;background:#2f7bff;top:-60px;left:-70px}
-.orb.b{width:220px;height:220px;background:#ffb733;bottom:60px;right:-80px;opacity:.35}
-.hero-txt{position:absolute;left:32px;right:32px;bottom:34px;z-index:2}
-.badge{display:inline-block;font-size:.7rem;letter-spacing:.18em;
-  background:rgba(56,224,255,.12);border:1px solid rgba(56,224,255,.4);
-  color:var(--cyan);padding:5px 12px;border-radius:20px;margin-bottom:14px}
-.hero-txt h1{font-family:'Orbitron',sans-serif;font-size:2.1rem;line-height:1.1;
-  background:linear-gradient(90deg,#fff,#ffb733);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent}
-.hero-txt p{color:#a9b8d8;font-size:.9rem;margin-top:8px;font-weight:300}
-
-/* ── ขวา: ฟอร์ม ── */
-.form-side{padding:38px 42px;max-height:88vh;overflow-y:auto}
-.form-side::-webkit-scrollbar{width:6px}
-.form-side::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
-.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.top h2{font-family:'Orbitron',sans-serif;font-size:1.5rem;letter-spacing:.04em}
-.top span{color:var(--cyan);font-size:.75rem;border:1px solid rgba(56,224,255,.35);
-  padding:4px 10px;border-radius:20px;white-space:nowrap}
-.lead{color:var(--dim);font-size:.9rem;margin-bottom:26px;font-weight:300}
-
-.sec{margin-bottom:26px}
-.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.num{font-family:'Orbitron',sans-serif;font-size:.8rem;color:#0a0f1e;
-  background:linear-gradient(135deg,var(--gold2),#ffe08a);
-  padding:3px 9px;border-radius:6px}
-.sec-head h3{font-size:1.05rem;font-weight:600}
-.opt{font-size:.72rem;color:var(--dim);border:1px solid var(--line);
-  padding:2px 8px;border-radius:20px}
-.sec-note{color:var(--dim);font-size:.82rem;margin-bottom:14px;font-weight:300}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:16px;margin-bottom:12px;position:relative;transition:.2s}
-.card::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;
-  border-radius:3px;background:linear-gradient(180deg,var(--blue),var(--cyan))}
-.card.sub::before{background:linear-gradient(180deg,var(--gold2),#ffe08a)}
-.card:focus-within{border-color:rgba(47,123,255,.6);box-shadow:0 0 0 3px rgba(47,123,255,.1)}
-.ptag{font-family:'Orbitron',sans-serif;font-size:.85rem;color:var(--cyan);
-  margin-bottom:12px;padding-left:12px;letter-spacing:.08em}
-.card.sub .ptag{color:var(--gold2)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding-left:12px}
-label{display:block;font-size:.76rem;color:var(--dim);margin-bottom:5px}
-input{width:100%;background:#070d1c;border:1px solid var(--line);border-radius:9px;
-  padding:11px 12px;color:var(--txt);font-family:inherit;font-size:.9rem;transition:.15s}
-input::placeholder{color:#4a5878}
-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,123,255,.15)}
-input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
-
-.qr{background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:24px;text-align:center}
-.qr img{width:180px;height:180px;background:#fff;padding:9px;border-radius:12px;
-  display:block;margin:0 auto 16px}
-.qr a{display:inline-block;background:linear-gradient(90deg,#06c755,#0ae06a);color:#fff;
-  text-decoration:none;font-weight:600;padding:12px 28px;border-radius:10px;font-size:.92rem}
-.qr small{display:block;color:var(--dim);margin-top:12px;font-size:.78rem}
-
-.errbox{display:none;background:rgba(255,77,106,.08);border:1px solid rgba(255,77,106,.4);
-  border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:.85rem;color:#ffa8b8}
-.errbox b{display:block;margin-bottom:6px;color:#ff6b85}
-.errbox li{margin-left:16px;font-weight:300}
-
-.send{width:100%;border:none;border-radius:12px;padding:16px;cursor:pointer;
-  font-family:'Orbitron',sans-serif;font-size:1.05rem;font-weight:700;color:#061024;
-  background:linear-gradient(90deg,var(--blue),var(--cyan));
-  box-shadow:0 8px 26px rgba(47,123,255,.35);transition:.15s;letter-spacing:.05em}
-.send:hover{filter:brightness(1.08)}
-.send:active{transform:scale(.985)}
-.send:disabled{opacity:.55;cursor:not-allowed}
-.foot{text-align:center;color:#4a5878;font-size:.75rem;margin-top:16px;font-weight:300}
-
-.done{position:fixed;inset:0;background:rgba(4,8,16,.93);display:none;
-  align-items:center;justify-content:center;z-index:99;padding:24px}
-.done.on{display:flex}
-.done-box{background:var(--panel);border:1px solid var(--line);border-radius:18px;
-  padding:38px 34px;text-align:center;max-width:400px}
-.done-box .tick{font-size:3rem;margin-bottom:12px}
-.done-box h3{font-family:'Orbitron',sans-serif;color:var(--cyan);margin-bottom:10px}
-.done-box p{color:var(--dim);font-size:.9rem;font-weight:300;line-height:1.7}
-.done-box button{margin-top:20px;background:none;border:1px solid var(--line);
-  color:var(--txt);padding:10px 26px;border-radius:9px;font-family:inherit;cursor:pointer}
-
-@media(max-width:900px){
-  body{padding:0}
-  .shell{grid-template-columns:1fr;border-radius:0;min-height:100vh}
-  .hero{min-height:280px}
-  .hero-txt h1{font-size:1.6rem}
-  .form-side{padding:28px 20px;max-height:none}
-  .grid{padding-left:8px}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="shell">
-  <!-- ซ้าย -->
+  <!-- ซ้าย: ภาพฮีโร่ -->
   <div class="hero">
     <div class="orb a"></div><div class="orb b"></div>
-    <img src="assets/rov-hero.jpg" alt="" onerror="this.style.display='none'">
+    <img id="heroImg" src="assets/rov-hero.jpg" alt="RoV Hero">
     <div class="hero-txt">
       <span class="badge">ARENA OF VALOR · 5V5</span>
       <h1>RoV<br>TOURNAMENT</h1>
@@ -131,7 +21,7 @@ input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
     </div>
   </div>
 
-  <!-- ขวา -->
+  <!-- ขวา: ฟอร์ม -->
   <div class="form-side">
     <div class="top">
       <h2>REGISTRATION</h2>
@@ -144,7 +34,7 @@ input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
       <div class="sec">
         <div class="sec-head"><span class="num">01</span><h3>ข้อมูลทีม</h3></div>
         <div class="card">
-          <div class="grid" style="padding-left:12px">
+          <div class="grid">
             <div><label>ชื่อทีม</label><input name="team_name" placeholder="ชื่อทีม"></div>
             <div><label>หัวหน้าทีม</label><input name="team_leader" placeholder="ชื่อ-นามสกุล"></div>
             <div><label>เบอร์ติดต่อหัวหน้าทีม</label><input name="team_contact" placeholder="08xxxxxxxx"></div>
@@ -169,6 +59,7 @@ input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
         <p class="sec-note">ทุกทีมต้องเข้ากลุ่มก่อนวันแข่ง ประกาศสายแข่งจะแจ้งในกลุ่มเท่านั้น</p>
         <div class="qr">
           <img id="qrImg" alt="QR เข้ากลุ่มไลน์">
+          <div id="qrFallback" class="qr-fallback">ไม่พบรูป QR — กดปุ่มด้านล่างเพื่อเข้ากลุ่มได้เลย</div>
           <a id="qrLink" href="#" target="_blank" rel="noopener">เปิดลิงก์เข้ากลุ่มไลน์</a>
           <small>เปิดจากมือถือ กดปุ่มได้เลย ไม่ต้องสแกน</small>
         </div>
@@ -190,125 +81,6 @@ input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
   </div>
 </div>
 
-<script>
-/* ═══════ ตั้งค่า ═══════ */
-var GROUP_LINK   = "https://line.me/R/ti/g/XXXXXXXXXX";
-var PLAYER_COUNT = 5;
-var GAS_URL      = "";
-/* ══════════════════════ */
-
-var FIELDS = [
-  {k:"name",    l:"ชื่อจริง - นามสกุล",       p:"ชื่อ-นามสกุล"},
-  {k:"nick",    l:"ชื่อในเกม (Nickname)",     p:"ชื่อในเกม"},
-  {k:"uid",     l:"UID ในเกม",                p:"เช่น 123456789"},
-  {k:"room",    l:"ห้อง",                     p:"ม.5/2"},
-  {k:"gpa",     l:"เกรดเฉลี่ยเทอมที่ผ่านมา",  p:"เช่น 3.25"},
-  {k:"contact", l:"เบอร์โทร หรือ IG",         p:"เบอร์ หรือ IG"}
-];
-
-function card(prefix, tag, isSub){
-  var cells = FIELDS.map(function(f){
-    var extra = f.k === "gpa" ? ' type="number" min="0" max="4" step="0.01" inputmode="decimal"' : "";
-    return '<div><label>' + f.l + '</label><input name="' + prefix + '_' + f.k +
-           '" placeholder="' + f.p + '"' + extra + '></div>';
-  }).join("");
-  return '<div class="card' + (isSub ? " sub" : "") + '"><div class="ptag">' + tag +
-         '</div><div class="grid">' + cells + '</div></div>';
-}
-
-var html = "";
-for (var i = 1; i <= PLAYER_COUNT; i++) html += card("p" + i, "PLAYER " + i, false);
-document.getElementById("mainList").innerHTML = html;
-document.getElementById("subList").innerHTML  = card("sub", "SUBSTITUTE", true);
-
-document.getElementById("qrLink").href = https://line.me/ti/g/642AHg2T5x;
-document.getElementById("qrImg").src =
-  "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=" + encodeURIComponent(https://line.me/ti/g/642AHg2T5x);
-
-function el(n){ return document.querySelector('[name="' + n + '"]'); }
-function val(n){ var e = el(n); return e ? e.value.trim() : ""; }
-function grab(pre){
-  var o = {};
-  FIELDS.forEach(function(f){ o[f.k] = val(pre + "_" + f.k); });
-  return o;
-}
-
-document.getElementById("form").addEventListener("submit", function(e){
-  e.preventDefault();
-  var errs = [];
-  document.querySelectorAll("input").forEach(function(i){ i.classList.remove("bad"); });
-
-  function mark(n){ var x = el(n); if (x) x.classList.add("bad"); }
-
-  if (!val("team_name"))    { errs.push("กรุณากรอกชื่อทีม"); mark("team_name"); }
-  if (!val("team_leader"))  { errs.push("กรุณากรอกชื่อหัวหน้าทีม"); mark("team_leader"); }
-  if (!val("team_contact")) { errs.push("กรุณากรอกเบอร์ติดต่อหัวหน้าทีม"); mark("team_contact"); }
-
-  function check(pre, who, must){
-    var p = grab(pre);
-    if (!must && !p.name && !p.nick && !p.uid) return null;
-    if (!p.name)    { errs.push(who + ": กรุณากรอกชื่อจริง"); mark(pre + "_name"); }
-    if (!p.nick)    { errs.push(who + ": กรุณากรอกชื่อในเกม"); mark(pre + "_nick"); }
-    if (!p.room)    { errs.push(who + ": กรุณากรอกห้อง"); mark(pre + "_room"); }
-    if (!p.contact) { errs.push(who + ": กรุณากรอกเบอร์โทรหรือ IG"); mark(pre + "_contact"); }
-    if (!/^[0-9]{6,12}$/.test(p.uid)) { errs.push(who + ": UID ต้องเป็นตัวเลข 6-12 หลัก"); mark(pre + "_uid"); }
-    var g = parseFloat(p.gpa);
-    if (p.gpa === "" || isNaN(g) || g < 0 || g > 4) { errs.push(who + ": เกรดต้องอยู่ระหว่าง 0.00 - 4.00"); mark(pre + "_gpa"); }
-    return p;
-  }
-
-  var players = [];
-  for (var i = 1; i <= PLAYER_COUNT; i++) players.push(check("p" + i, "ผู้เล่นที่ " + i, true));
-  var sub = check("sub", "ตัวสำรอง", false);
-
-  var uids = players.concat(sub ? [sub] : []).map(function(p){ return p ? p.uid : ""; })
-                    .filter(function(u){ return u; });
-  if (new Set(uids).size !== uids.length) errs.push("พบ UID ซ้ำกันภายในทีม");
-
-  var box = document.getElementById("errBox");
-  if (errs.length){
-    box.style.display = "block";
-    box.innerHTML = "<b>กรุณาตรวจสอบข้อมูล</b><ul>" +
-      errs.map(function(x){ return "<li>" + x + "</li>"; }).join("") + "</ul>";
-    box.scrollIntoView({behavior:"smooth", block:"center"});
-    return;
-  }
-  box.style.display = "none";
-
-  var data = {
-    game: "RoV",
-    team: { name: val("team_name"), leader: val("team_leader"), contact: val("team_contact") },
-    players: players,
-    substitute: sub,
-    submittedAt: new Date().toISOString()
-  };
-
-  var btn = e.target.querySelector(".send");
-  btn.disabled = true;
-  btn.textContent = "กำลังส่ง...";
-
-  function finish(ok){
-    btn.disabled = false;
-    btn.textContent = "ส่งข้อมูลลงทะเบียน";
-    if (ok){
-      document.getElementById("done").classList.add("on");
-      e.target.reset();
-    } else {
-      alert("ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่");
-    }
-  }
-
-  if (!GAS_URL){
-    console.log("ยังไม่ได้เชื่อม Google Sheet — ข้อมูล:", data);
-    setTimeout(function(){ finish(true); }, 500);
-    return;
-  }
-  fetch(GAS_URL, {
-    method: "POST", mode: "no-cors",
-    headers: {"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify(data)
-  }).then(function(){ finish(true); }).catch(function(){ finish(false); });
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
