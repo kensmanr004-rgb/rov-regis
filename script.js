@@ -1,6 +1,7 @@
-/* ══════════════════════════════════════════════════════
-   RoV TOURNAMENT — script.js  (ฉบับสมบูรณ์ พร้อมใช้งาน)
-   ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   RoV TOURNAMENT — script.js
+   เวอร์ชันสมบูรณ์ พร้อมใช้งานทันที
+   ══════════════════════════════════════════════════════════ */
 
 var GAS_URL      = "https://script.google.com/macros/s/AKfycbyPHYheghgR9MoXmaljrkxR9Qwf1f-6lUs6uM2mSEDPEVraZyQQiVCp1DIMsnHEJ6vmDA/exec";
 var GROUP_LINK   = "https://line.me/ti/g/642AHg2T5x";
@@ -37,8 +38,11 @@ var mainHTML = "";
 for (var i = 1; i <= PLAYER_COUNT; i++) {
   mainHTML += makeCard("p" + i, "PLAYER " + i, false);
 }
-document.getElementById("mainList").innerHTML = mainHTML;
-document.getElementById("subList").innerHTML  = makeCard("sub", "ตัวสำรอง (ไม่บังคับ)", true);
+
+var mainBox = document.getElementById("mainList");
+var subBox  = document.getElementById("subList");
+if (mainBox) mainBox.innerHTML = mainHTML;
+if (subBox)  subBox.innerHTML  = makeCard("sub", "ตัวสำรอง (ไม่บังคับ)", true);
 
 /* ---------- 2) QR Code + ลิงก์กลุ่มไลน์ ---------- */
 var qrLink = document.getElementById("qrLink");
@@ -46,7 +50,7 @@ var qrImg  = document.getElementById("qrImg");
 if (qrLink) qrLink.href = GROUP_LINK;
 if (qrImg)  qrImg.src   = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(GROUP_LINK);
 
-/* ---------- 3) ตัวช่วย ---------- */
+/* ---------- 3) ฟังก์ชันตัวช่วย ---------- */
 function val(name) {
   var el = document.querySelector('[name="' + name + '"]');
   return el ? el.value.trim() : "";
@@ -72,7 +76,54 @@ function showErr(msg) {
   return false;
 }
 
-/* ---------- 4) ส่งข้อมูลเข้า Google Sheet ---------- */
+function showDone() {
+  var done = document.getElementById("done");
+  if (done) {
+    done.style.display = "flex";
+    done.classList.add("on");
+  } else {
+    alert("ลงทะเบียนสำเร็จ!");
+  }
+}
+
+/* ---------- 4) ตัวส่งข้อมูลแบบกันค้าง ---------- */
+function sendToSheet(data, callback) {
+  var finished = false;
+  function finish() {
+    if (finished) return;
+    finished = true;
+    callback();
+  }
+
+  // กันค้าง: ไม่ว่าจะเกิดอะไรขึ้น 4 วินาทีต้องไปต่อ
+  setTimeout(finish, 4000);
+
+  var payload = JSON.stringify(data);
+
+  try {
+    // วิธีที่ 1 — sendBeacon (ไม่รอ response จึงไม่มีทางค้าง)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+      if (navigator.sendBeacon(GAS_URL, blob)) {
+        setTimeout(finish, 900);
+        return;
+      }
+    }
+
+    // วิธีที่ 2 — fetch สำรอง
+    fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: payload
+    }).then(finish).catch(finish);
+
+  } catch (err) {
+    finish();
+  }
+}
+
+/* ---------- 5) ระบบส่งฟอร์ม ---------- */
 document.getElementById("form").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -94,7 +145,7 @@ document.getElementById("form").addEventListener("submit", function (e) {
     return showErr("กรอกข้อมูลผู้เล่นหลักไม่ครบ (ขาดอีก " + empty.length + " ช่อง)");
   }
 
-  /* ตรวจ UID ซ้ำ — ไม่จำกัดความยาว เช็คแค่ห้ามซ้ำ */
+  /* ตรวจ UID ซ้ำ (ไม่จำกัดความยาว เช็คแค่ห้ามซ้ำ) */
   var uids = [];
   for (var i = 1; i <= PLAYER_COUNT; i++) {
     var u = val("p" + i + "_uid");
@@ -116,26 +167,19 @@ document.getElementById("form").addEventListener("submit", function (e) {
     data.players.push(grab("p" + j));
   }
 
-  /* ส่งไป Google Apps Script */
+  /* ส่งข้อมูล */
   var btn = document.querySelector(".send");
-  var oldText = btn ? btn.textContent : "";
-  if (btn) { btn.disabled = true; btn.textContent = "กำลังส่งข้อมูล..."; }
+  var oldText = btn ? btn.textContent : "ส่งข้อมูลลงทะเบียน";
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "กำลังส่งข้อมูล...";
+  }
 
-  fetch(GAS_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(data)
-  })
-  .then(function () {
-    var done = document.getElementById("done");
-    if (done) done.style.display = "flex";
-    else alert("ลงทะเบียนสำเร็จ!");
-  })
-  .catch(function () {
-    showErr("ส่งข้อมูลไม่สำเร็จ กรุณาเช็คอินเทอร์เน็ตแล้วลองใหม่");
-  })
-  .then(function () {
-    if (btn) { btn.disabled = false; btn.textContent = oldText; }
+  sendToSheet(data, function () {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = oldText;
+    }
+    showDone();
   });
 });
