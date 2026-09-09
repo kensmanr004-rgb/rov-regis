@@ -110,3 +110,21 @@ input.bad{border-color:#ff4d6a;box-shadow:0 0 0 3px rgba(255,77,106,.12)}
   .hero-txt h1{font-size:1.6rem}
   .form-side{padding:28px 20px;max-height:none}
 }
+/* ===== เพิ่มท้ายไฟล์ style.css ===== */
+.done.on {
+  display: flex !important;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+input[name$="_uid"] {
+  letter-spacing: 0.5px;
+  text-overflow: ellipsis;
+}
