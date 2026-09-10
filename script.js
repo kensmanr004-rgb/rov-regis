@@ -4,7 +4,7 @@
    ══════════════════════════════════════════════════════════ */
 
 var GAS_URL      = "https://script.google.com/macros/s/AKfycbyPHYheghgR9MoXmaljrkxR9Qwf1f-6lUs6uM2mSEDPEVraZyQQiVCp1DIMsnHEJ6vmDA/exec";
-var GROUP_LINK   = "https://line.me/ti/g/642AHg2T5x";
+var GROUP_LINK   = "https://line.me/ti/g2/eD_YemyJcQmvPq5zGOGyKCOfmofX33axZ6KtlA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
 var PLAYER_COUNT = 5;
 
 /* ---------- โครงสร้างช่องกรอกของผู้เล่นแต่ละคน ---------- */
