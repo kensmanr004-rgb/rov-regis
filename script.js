@@ -3,7 +3,7 @@
    เวอร์ชันสมบูรณ์ พร้อมใช้งานทันที
    ══════════════════════════════════════════════════════════ */
 
-var GAS_URL      = "https://script.google.com/macros/s/AKfycbyPHYheghgR9MoXmaljrkxR9Qwf1f-6lUs6uM2mSEDPEVraZyQQiVCp1DIMsnHEJ6vmDA/exec";
+var GAS_URL      = "https://script.google.com/macros/s/AKfycbyFV__PuPPvqeEuWtPL4NmgtaCswC1h0B5YpFhZmWEYnMrB6yyKUG2QzO0WDkBI0GGx6g/exec";
 var GROUP_LINK   = "https://line.me/ti/g2/eD_YemyJcQmvPq5zGOGyKCOfmofX33axZ6KtlA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
 var PLAYER_COUNT = 5;
 
