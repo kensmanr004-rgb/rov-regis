@@ -156,14 +156,16 @@ document.getElementById("form").addEventListener("submit", function (e) {
   }
 
   /* รวมข้อมูลทั้งหมด */
+    /* ---- script.js ของ RoV — ส่วนรวมข้อมูล ---- */
   var data = {
+    game:         "RoV",              /* ← เพิ่มบรรทัดนี้เข้าไป */
     team_name:    val("team_name"),
     team_leader:  val("team_leader"),
     team_contact: val("team_contact"),
     players:      [],
     substitute:   grab("sub")
-     game: "RoV"
   };
+   
   for (var j = 1; j <= PLAYER_COUNT; j++) {
     data.players.push(grab("p" + j));
   }
