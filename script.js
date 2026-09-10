@@ -162,6 +162,7 @@ document.getElementById("form").addEventListener("submit", function (e) {
     team_contact: val("team_contact"),
     players:      [],
     substitute:   grab("sub")
+     game: "RoV"
   };
   for (var j = 1; j <= PLAYER_COUNT; j++) {
     data.players.push(grab("p" + j));
